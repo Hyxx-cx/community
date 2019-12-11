@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+    lang是language的缩写，en代表English，zh-CN代表中文
+    不写这个标签也没有问题，主要是告诉浏览器这个页面展示的是什么语言，便于翻译。
+-->
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <!--
+        http-equiv 属性提供了 content 属性的信息/值的 HTTP 头。
+        语法：<meta http-equiv="content-type|default-style|refresh">
+        content-type：规定文档的字符编码。
+        default-style： 规定要使用的预定义的样式表。
+        refresh：定义文档自动刷新的时间间隔。
+    -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p th:text="'Hello,' + ${name}">welcome</p>
+    <!--welcome被替换了-->
+</body>
+</html>
