@@ -9,6 +9,9 @@ import xyz.yuxx.community.dto.AccessTokenDTO;
 import xyz.yuxx.community.dto.GitHubUser;
 import xyz.yuxx.community.provider.GitHubProvider;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class AuthorizeController {
@@ -25,7 +28,9 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(value = "code") String code,
-                           @RequestParam(value = "state") String state){
+                           @RequestParam(value = "state") String state,
+                           HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession();  //获取session
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setRedirect_uri(redirect_uri);
@@ -34,10 +39,14 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String access_token = gitHubProvider.getAccessToken(accessTokenDTO);//获取access_token
         GitHubUser gitHubUser = gitHubProvider.getGitHubUser(access_token);//获取user信息
-        System.out.println(gitHubUser.getId());
-        System.out.println(gitHubUser.getName());
-        System.out.println(gitHubUser.getBio());
+        if (gitHubUser != null) {
+            session.setAttribute("gitHubUser", gitHubUser);
+            //return "redirect:/index.html";//error
+            return "redirect:/";// 以重定向的方式返回到index页面，地址会显示index地址
+        } else {
+            return "redirect:/";
+        }
 
-        return "index"; //返回到index页面
+        //return "index"; //以转发的方式返回到index页面，地址栏会显示之前的地址
     }
 }
