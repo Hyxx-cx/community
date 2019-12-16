@@ -1,0 +1,11 @@
+body{
+    background-color: #efefef;/*背景色*/
+}
+.publish_main{
+    margin: 50px;/*边距*/
+    background-color: white;
+}
+.btn-publish{
+    margin-bottom: 20px;/*和底部距离20px*/
+    float: right; /*使按钮悬浮到右边*/
+}

@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js"></script>
     <!--    <script src="../static/js/bootstrap.min.js"></script>-->
     <!--    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">-->
@@ -54,10 +55,36 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!--行（row）”必须包含在 .container （固定宽度）或 .container-fluid （100% 宽度）中，以便为其赋予合适的排列（aligment）和内补（padding）-->
-    <div class="container-fluid">
+    <div class="container-fluid publish_main">
         <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 " style="background-color: #c0a16b;height: 50px"></div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " style="background-color: #c1e2b3;height: 50px" ></div>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 ">
+                <H2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</H2>
+                <hr>
+                <form>
+                    <!--使用bootstrap模板-->
+                    <div class="form-group">
+                        <label for="title">问题标题（简单扼要）:</label>
+                        <input type="text" class="form-control" id="title" placeholder="问题标题...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">问题补充 (必填，请参照右侧提示):</label>
+                        <textarea type="text" class="form-control" rows="10" id="description"></textarea>
+                    </div>
+                    <!--只有class类设置为form-control，才会忽略cols，撑满屏幕-->
+                    <div class="form-group">
+                        <label for="tag">添加标签</label>
+                        <input type="text" class="form-control" id="tag" placeholder="创建或搜索添加新话题...">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-publish">发布</button><!--发布按钮-->
+
+                </form>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 "  >
+                <h3>问题发起指南</h3>
+                • 问题标题: 请用精简的语言描述您发布的问题，不超过25字<br>
+                • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料：<br>
+            </div>
         </div>
     </div>
 </body>
