@@ -56,7 +56,11 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());  //毫秒计数格林威治时间
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);    //插入数据库
-            httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
+            //httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
+            //新建的cookie默认是在浏览会话结束后失效，所以我们还要给cookie设置时效
+            Cookie cookie = new Cookie("token",token);//创建一个cookie
+            cookie.setMaxAge(60*60);//设置cookie有效时间， 单位为秒
+            httpServletResponse.addCookie(cookie);//将cookie对象添加到响应中
             //return "redirect:/index.html";//error
             return "redirect:/";// 以重定向的方式返回到index页面，地址会显示index地址
         } else {

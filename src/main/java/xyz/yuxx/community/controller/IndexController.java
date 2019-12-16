@@ -19,6 +19,8 @@ public class IndexController {
     @GetMapping("/")
     public String Index(HttpServletRequest httpServletRequest){
         Cookie[] cookies = httpServletRequest.getCookies();
+        //如果我们浏览器中没有cookie那么cookies将为空，因此如果不做if判断会出现空指针异常
+        //首次登录自然是没有cookie的
         if(cookies != null){
             for(Cookie cookie:cookies){
                 if(cookie.getName().equals("token")){
