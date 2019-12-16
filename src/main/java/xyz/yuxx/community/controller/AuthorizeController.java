@@ -11,7 +11,9 @@ import xyz.yuxx.community.dto.GitHubUser;
 import xyz.yuxx.community.mapper.UserMapper;
 import xyz.yuxx.community.provider.GitHubProvider;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
@@ -34,7 +36,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(value = "code") String code,
                            @RequestParam(value = "state") String state,
-                           HttpServletRequest httpServletRequest){
+                           HttpServletRequest httpServletRequest,
+                           HttpServletResponse httpServletResponse){
         HttpSession session = httpServletRequest.getSession();  //获取session
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
@@ -48,11 +51,12 @@ public class AuthorizeController {
             User user = new User();
             user.setAccountId(String.valueOf(gitHubUser.getId()));//获取GitHub账号的id，并将id的Long类型转换成String类型
             user.setName(gitHubUser.getName()); //获取账号昵称
-            user.setToken(UUID.randomUUID().toString());   //生成一个UUID
+            String token = UUID.randomUUID().toString();    //生成一个UUID 作为token
+            user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());  //毫秒计数格林威治时间
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);    //插入数据库
-            session.setAttribute("gitHubUser", gitHubUser);
+            httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
             //return "redirect:/index.html";//error
             return "redirect:/";// 以重定向的方式返回到index页面，地址会显示index地址
         } else {

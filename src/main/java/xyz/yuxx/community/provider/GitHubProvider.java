@@ -11,6 +11,7 @@ import java.io.IOException;
 @Component
 public class GitHubProvider {
 
+    //post请求
     public String getAccessToken(AccessTokenDTO accessTokenDTO) {
 
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
@@ -39,6 +40,7 @@ public class GitHubProvider {
 
     }
 
+    //get请求
     public GitHubUser getGitHubUser(String access_token)  {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
