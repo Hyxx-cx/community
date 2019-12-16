@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <!--    <script src="../static/js/bootstrap.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">-->
+    <!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+
+    <title>发布--Community</title>
+</head>
+<body>
+<nav class="navbar navbar-default"><!--<nav> 标签定义导航链接的部分-->
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#">Community</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索话题">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li th:if="${session.gitHubUser == null }"><a
+                        href="https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=http://270n75655d.zicp.vip/callback&scope=user&state=1">登录</a>
+                </li>
+
+                <li th:if="not ${session.gitHubUser == null }" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false" th:text="${session.gitHubUser.getName()}">我 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">消息中心</a></li>
+                        <li><a href="#">个人信息</a></li>
+                        <li><a href="#">退出登录</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!--行（row）”必须包含在 .container （固定宽度）或 .container-fluid （100% 宽度）中，以便为其赋予合适的排列（aligment）和内补（padding）-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 " style="background-color: #c0a16b;height: 50px"></div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " style="background-color: #c1e2b3;height: 50px" ></div>
+        </div>
+    </div>
+</body>
+</html>
