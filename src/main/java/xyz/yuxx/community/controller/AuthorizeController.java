@@ -47,7 +47,7 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String access_token = gitHubProvider.getAccessToken(accessTokenDTO);//获取access_token
         GitHubUser gitHubUser = gitHubProvider.getGitHubUser(access_token);//获取user信息
-        if (gitHubUser != null) {
+        if (gitHubUser != null && gitHubUser.getId() != null) {
             User user = new User();
             user.setAccountId(String.valueOf(gitHubUser.getId()));//获取GitHub账号的id，并将id的Long类型转换成String类型
             user.setName(gitHubUser.getName()); //获取账号昵称

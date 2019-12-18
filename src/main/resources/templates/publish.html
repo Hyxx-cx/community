@@ -36,13 +36,13 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
 
-                <li th:if="${session.gitHubUser == null }"><a
+                <li th:if="${session.User == null }"><a
                         href="https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=http://270n75655d.zicp.vip/callback&scope=user&state=1">登录</a>
                 </li>
 
-                <li th:if="not ${session.gitHubUser == null }" class="dropdown">
+                <li th:if="not ${session.User == null }" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="${session.gitHubUser.getName()}">我 <span class="caret"></span></a>
+                       aria-expanded="false" th:text="${session.User.getName()}">我 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
                         <li><a href="#">个人信息</a></li>
@@ -57,25 +57,30 @@
 <!--行（row）”必须包含在 .container （固定宽度）或 .container-fluid （100% 宽度）中，以便为其赋予合适的排列（aligment）和内补（padding）-->
     <div class="container-fluid publish_main">
         <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 ">
-                <H2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</H2>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 "><!--使用栅格系统完成页面响应式布局，-->
+                <H2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</H2><!--添加一个图标-->
+                <!--aria-hidden="true"
+                    该图标是装饰用的，该语句会对该图标进行语义化隐藏，避免屏幕读取设备识别到，误导残障人士
+                -->
                 <hr>
-                <form>
+                <form action="/publish" method="post">
                     <!--使用bootstrap模板-->
                     <div class="form-group">
                         <label for="title">问题标题（简单扼要）:</label>
-                        <input type="text" class="form-control" id="title" placeholder="问题标题...">
+                        <input type="text" class="form-control" name="title" id="title" th:value="${title}" placeholder="问题标题...">
                     </div>
 
                     <div class="form-group">
+                        <!--for 属性规定 label 与哪个表单元素绑定。分为显示联系，隐式联系-->
                         <label for="description">问题补充 (必填，请参照右侧提示):</label>
-                        <textarea type="text" class="form-control" rows="10" id="description"></textarea>
+                        <textarea type="text" class="form-control" rows="10" name="description" id="description" th:utext ="${description}"></textarea>
                     </div>
                     <!--只有class类设置为form-control，才会忽略cols，撑满屏幕-->
                     <div class="form-group">
                         <label for="tag">添加标签</label>
-                        <input type="text" class="form-control" id="tag" placeholder="创建或搜索添加新话题...">
+                        <input type="text" class="form-control" name="tag" id="tag" th:value="${tag}" placeholder="创建或搜索添加新话题...">
                     </div>
+                    <span th:text="${error}"></span>
                     <button type="submit" class="btn btn-success btn-publish">发布</button><!--发布按钮-->
 
                 </form>

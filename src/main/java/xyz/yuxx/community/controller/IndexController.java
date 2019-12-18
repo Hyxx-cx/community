@@ -27,7 +27,8 @@ public class IndexController {
                     String token = cookie.getValue();
                     User user = userMapper.findUserByToken(token);
                     if(user != null){
-                        httpServletRequest.getSession().setAttribute("gitHubUser",user);
+                        httpServletRequest.getSession().setAttribute("User",user);
+                        /** 将用户信息放到session中，便于html调用*/
                     }
                     break;
                 }

@@ -34,10 +34,13 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
 
-                <li th:if="${session.gitHubUser == null }"><a href="https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=http://270n75655d.zicp.vip/callback&scope=user&state=1">登录</a></li>
+                <li th:if="${session.User == null }"><a href="https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=http://270n75655d.zicp.vip/callback&scope=user&state=1">登录</a></li>
 
-                <li th:if="not ${session.gitHubUser == null }" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.gitHubUser.getName()}">我 <span class="caret"></span></a>
+<!--                <li th:if="not ${session.gitHubUser == null }" class="active"><a href="/publish">发布问题 <span class="sr-only">(发布问题)</span></a></li>-->
+                <li th:if="not ${session.User == null }" ><a href="/publish">发布问题</a></li>
+
+                <li th:if="not ${session.User == null }" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.User.getName()}">我 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
                         <li><a href="#">个人信息</a></li>
