@@ -9,3 +9,14 @@ body{
     margin-bottom: 20px;/*和底部距离20px*/
     float: right; /*使按钮悬浮到右边*/
 }
+
+.media-img{
+    width: 55px;
+    height: 55px;
+}
+
+.text{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

@@ -57,10 +57,16 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());  //毫秒计数格林威治时间
             user.setGmtModified(user.getGmtCreate());
             user.setAvatar_url(gitHubUser.getAvatar_url());
+
+            /** 需要先判断 是否已经存在用户信息，如果login和id都匹配上，那就不要插入全部信息，仅仅修改token 的信息*/
+
             userMapper.insert(user);    //插入数据库
             //httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
             //新建的cookie默认是在浏览会话结束后失效，所以我们还要给cookie设置时效
             Cookie cookie = new Cookie("token",token);//创建一个cookie
+
+            /** 要加个方法，如果有token就更新token，如果没有就添加token*/
+
             cookie.setMaxAge(60*60);//设置cookie有效时间， 单位为秒
             httpServletResponse.addCookie(cookie);//将cookie对象添加到响应中
             //return "redirect:/index.html";//error
