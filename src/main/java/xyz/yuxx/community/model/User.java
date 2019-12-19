@@ -16,6 +16,6 @@ public class User {
     private Long gmtCreate;
     private Long gmtModified;
     private String avatar_url;
-
+    private String login;
 
 }
