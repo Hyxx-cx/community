@@ -48,6 +48,7 @@ public class AuthorizeController {
         String access_token = gitHubProvider.getAccessToken(accessTokenDTO);//获取access_token
         GitHubUser gitHubUser = gitHubProvider.getGitHubUser(access_token);//获取user信息
         if (gitHubUser != null && gitHubUser.getId() != null) {
+            //有bug,每次登录都会生成一个用户,即使是同一个GitHub账号登录.
             User user = new User();
             user.setAccountId(String.valueOf(gitHubUser.getId()));//获取GitHub账号的id，并将id的Long类型转换成String类型
             user.setName(gitHubUser.getName()); //获取账号昵称
@@ -55,6 +56,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());  //毫秒计数格林威治时间
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatar_url(gitHubUser.getAvatar_url());
             userMapper.insert(user);    //插入数据库
             //httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
             //新建的cookie默认是在浏览会话结束后失效，所以我们还要给cookie设置时效
