@@ -2,6 +2,10 @@ package xyz.yuxx.community.model;
 
 import lombok.Data;
 
+/**
+ * model这边是数据库模型，是和数据库一一对应的
+ * 数据库有的要有，数据库没的不要
+ */
 @Data
 public class User {
     /**
@@ -15,7 +19,7 @@ public class User {
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
-    private String avatar_url;
+    private String avatarUrl;
     private String login;
 
 }

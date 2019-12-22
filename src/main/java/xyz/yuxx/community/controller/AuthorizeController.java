@@ -56,7 +56,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());  //毫秒计数格林威治时间
             user.setGmtModified(user.getGmtCreate());
-            user.setAvatar_url(gitHubUser.getAvatar_url());
+            user.setAvatarUrl(gitHubUser.getAvatarUrl());
             user.setLogin(gitHubUser.getLogin());
 
             /** 需要先判断 是否已经存在用户信息，如果login和id都匹配上，那就不要插入全部信息，仅仅修改token 的信息*/

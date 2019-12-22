@@ -35,7 +35,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
 
-                <li th:if="${session.User == null }"><a href="https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=http://270n75655d.zicp.vip/callback&scope=user&state=1">登录</a></li>
+                <li th:if="${session.User == null }"><a th:href=" @{'https://github.com/login/oauth/authorize?client_id=73b35e5a3e56e148322c&redirect_uri=' + ${indexUrl} + '/callback&scope=user&state=1'}">登录</a></li>
 
 <!--                <li th:if="not ${session.gitHubUser == null }" class="active"><a href="/publish">发布问题 <span class="sr-only">(发布问题)</span></a></li>-->
                 <li th:if="not ${session.User == null }" ><a href="/publish">发布问题</a></li>
@@ -59,19 +59,23 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 "><!--使用栅格系统完成页面响应式布局，-->
             <H2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</H2><!--添加一个图标-->
             <hr>
-            <div class="media">
+            <div class="media" th:each="question : ${questions}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object media-img img-rounded" src="https://avatars3.githubusercontent.com/u/58386771?v=4" alt="缩略图">
+                        <img class="media-object media-img img-rounded"  th:src="${question.user?.avatarUrl}"  alt="缩略图">
+
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">Title</h4>
-                    Description
-                    <div class="text">0 个回复 • 10 次浏览 • 20 分钟前</div>
+                    <h4 class="media-heading" th:text="${question.title}">Title</h4>
+                    <div th:text="${question.description}">Des</div>
+                    <div class="text">
+                        <span th:text="${question.commentCount}"></span> 个回复 •
+                        <span th:text="${question.viewCount}"></span> 次浏览 •
+                        <span th:text="${#dates.format(question.gmtCreate, 'yyyy/MM/dd HH:mm')}"></span>
+                    </div>
                 </div>
             </div>
-
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 "  >
             <h3>热门话题</h3>
