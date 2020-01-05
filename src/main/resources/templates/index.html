@@ -59,11 +59,12 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 "><!--使用栅格系统完成页面响应式布局，-->
             <H2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>发现</H2><!--添加一个图标-->
             <hr>
-            <div class="media" th:each="question : ${questions}">
+            <div class="media" th:each="question : ${pagination.questions}">    <!--此时要遍历pagination中的questions，它才是一个List-->
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object media-img img-rounded"  th:src="${question.user?.avatarUrl}"  alt="缩略图">
-
+                        <img class="media-object media-img img-rounded"
+                             th:src="${question.user?.avatarUrl}"  alt="缩略图">
+                        <!--？判断对象是否为空，空就不去获取avatarUrl了，不然会报空指针-->
                     </a>
                 </div>
                 <div class="media-body">
@@ -76,9 +77,35 @@
                     </div>
                 </div>
             </div>
+            <!--分页条-->
+            <nav aria-label="Page navigation" class="page-align">
+                <ul class="pagination">
+                    <li>
+                        <a th:if="${pagination.showFirstPage}" th:href="@{/(page = 1)}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:if="${pagination.showPrevious}" th:href="@{/(page = ${pagination.page}-1)}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="page : ${pagination.pages}"  th:class="${pagination.page == page}? 'active' : ''"><a th:text="${page}" th:href="@{/(page=${page})}"></a></li><!--跳转到指定页-->
+                    <li>
+                        <a th:if="${pagination.showNext}" th:href="@{/(page = ${pagination.page}+1)}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:if="${pagination.showEndPage}" th:href="@{/(page = ${pagination.totalPage})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 "  >
-            <h3>热门话题</h3>
+            <h3>话xxx题xx</h3>
         </div>
     </div>
 </div>

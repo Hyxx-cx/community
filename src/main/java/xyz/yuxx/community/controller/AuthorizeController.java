@@ -68,6 +68,7 @@ public class AuthorizeController {
             }
 
 
+
             //httpServletResponse.addCookie(new Cookie("token",token));   //新建一个cookie作为token，该token用来向数据库查询数据
             //新建的cookie默认是在浏览会话结束后失效，所以我们还要给cookie设置时效
             Cookie cookie = new Cookie("token",token);//创建一个cookie

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import xyz.yuxx.community.dto.PaginationDTO;
 import xyz.yuxx.community.dto.QuestionDTO;
 import xyz.yuxx.community.mapper.QuestionMapper;
 import xyz.yuxx.community.mapper.UserMapper;
@@ -30,7 +32,9 @@ public class IndexController {
 
     @GetMapping("/")
     public String Index(HttpServletRequest httpServletRequest,
-                        Model model){
+                        Model model,
+                        @RequestParam(value = "page",defaultValue = "1") Integer page, //接收page和size参数，决定显示第几页，每页显示多少
+                        @RequestParam(value = "size",defaultValue = "5") Integer size){
         model.addAttribute("indexUrl", indexUrl);
         Cookie[] cookies = httpServletRequest.getCookies();
         //如果我们浏览器中没有cookie那么cookies将为空，因此如果不做if判断会出现空指针异常
@@ -57,10 +61,10 @@ public class IndexController {
          * QuestionDTO怎么来？
          * 我们定义一个questionService，在该类内对question和user进行组装生成QuestionDTO
          */
-        List<QuestionDTO> questionList = questionService.list();
+        PaginationDTO pagination = questionService.list(page,size);       //需要将page和size参数传到list方法中，决定每一页取出来的questions
 
-        System.out.println(questionList);
-        model.addAttribute("questions", questionList);
+//        System.out.println(questionList);
+        model.addAttribute("pagination", pagination);
         return "index";
     }
 }

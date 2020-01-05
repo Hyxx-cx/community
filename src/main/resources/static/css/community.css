@@ -20,3 +20,7 @@ body{
     font-weight: normal;
     color: #999;
 }
+
+.page-align{
+    text-align: right;
+}

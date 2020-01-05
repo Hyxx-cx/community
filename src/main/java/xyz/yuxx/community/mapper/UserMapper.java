@@ -18,6 +18,6 @@ public interface UserMapper {
     @Update("update user set token=#{token} where account_id=#{accountId}")
     void updateToken(@Param("token") String token, @Param("accountId") String accountId);
 
-    @Select("select * from user where id = #{creatorId}")
-    User findUserById(@Param("creatorId") Integer creatorId);
+    @Select("select * from user where id = #{id}")
+    User findUserById(@Param("id") Integer id);
 }
